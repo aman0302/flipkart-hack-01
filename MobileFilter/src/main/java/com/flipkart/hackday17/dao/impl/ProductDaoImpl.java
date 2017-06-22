@@ -1,9 +1,12 @@
 package com.flipkart.hackday17.dao.impl;
 
-import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Component;
+import java.util.List;
 
-import com.flipkart.hackday17.model.Product;
+import org.hibernate.Criteria;
+import org.hibernate.SessionFactory;
+
+import com.flipkart.hackday17.model.ProductDaoModel;
+import com.flipkart.hackday17.model.ProductResponse;
 
 public class ProductDaoImpl {
 
@@ -13,7 +16,14 @@ public class ProductDaoImpl {
 		this.sessionFactory = sf;
 	}
 
-	public void addProduct(Product product) {
+	public void addProduct(ProductResponse product) {
 		sessionFactory.getCurrentSession().persist(product);
 	}
+
+	public List<ProductDaoModel> getAllProducts() {
+		Criteria criteria=sessionFactory.getCurrentSession().createCriteria(ProductDaoModel.class);
+		return criteria.list();
+	}
+
+	
 }

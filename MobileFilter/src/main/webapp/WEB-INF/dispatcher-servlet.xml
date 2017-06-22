@@ -30,7 +30,7 @@ http://www.springframework.org/schema/tx
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>com.flipkart.hackday17.model.Product</value>
+				<value>com.flipkart.hackday17.model.ProductDaoModel</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -45,15 +45,27 @@ http://www.springframework.org/schema/tx
 	<bean id="productDao" class="com.flipkart.hackday17.dao.impl.ProductDaoImpl">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
-	<bean id="ProductService" class="com.flipkart.hackday17.service.impl.ProductServiceImpl">
+	<bean id="questionDao" class="com.flipkart.hackday17.dao.impl.QuestionDaoImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	<bean id="answerScoreDao" class="com.flipkart.hackday17.dao.impl.AnswerScoreDaoImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+
+	<bean id="productService" class="com.flipkart.hackday17.service.impl.ProductServiceImpl">
 		<property name="productDaoImpl" ref="productDao"></property>
+		<property name="answerDaoImpl" ref="answerScoreDao"></property>
+	</bean>
+	<bean id="questionService" class="com.flipkart.hackday17.service.impl.QuestionServiceImpl">
+		<property name="questionDaoImpl" ref="questionDao"></property>
+		<property name="answerDaoImpl" ref="answerScoreDao"></property>
 	</bean>
 
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 </beans>
 	
