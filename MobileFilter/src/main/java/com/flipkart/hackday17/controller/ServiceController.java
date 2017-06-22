@@ -69,7 +69,7 @@ public class ServiceController {
 	@RequestMapping(value = "/getProductLists", method = RequestMethod.GET, produces = "application/json", headers = "Accept=*/*")
 	public @ResponseBody String getProducts(@RequestParam("answers") String answers) {
 		List<ProductDaoModel> products = getProductDummyData();//productService.getProducts(answers);
-		
+
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.writeValueAsString(products);
@@ -84,7 +84,7 @@ public class ServiceController {
 	private List<ProductDaoModel> getProductDummyData() {
 		List<ProductDaoModel> daoModels=new ArrayList<ProductDaoModel>();
 		ProductDaoModel daoModel1=new ProductDaoModel();
-		daoModel1.setImageUrl("imageUrl");
+		daoModel1.setImageUrl("https://rukminim1.flixcart.com/image/400/400/kurta/g/y/s/m-svbk1828-svanik-original-imaerwfaheb8nr8g.jpeg?q=70");
 		daoModel1.setName("name");
 		daoModel1.setProductId("productId");
 		

@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Entity
 @Table(name="product")
 @JsonSerialize
-public class ProductDaoModel {
+public class ProductDaoModel implements Comparable<ProductDaoModel> {
 
 
 	@Id
@@ -57,6 +57,13 @@ public class ProductDaoModel {
 	}
 	public void setScore(BigDecimal score) {
 		this.score = score;
+	}
+	public int compareTo(ProductDaoModel o) {
+		if((this.score).compareTo(o.getScore())<0)
+			return 1;
+		if((this.score).compareTo(o.getScore())==0)
+			return 0;
+		return -1;
 	}
 	
 	

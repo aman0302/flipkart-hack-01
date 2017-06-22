@@ -2,6 +2,8 @@ package com.flipkart.hackday17.service.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
@@ -31,13 +33,23 @@ public class ProductServiceImpl {
 	@Transactional
 	public List<ProductDaoModel> getProducts(String answers) {
 
-		List<ProductDaoModel> productDaoModel = productDaoImpl.getAllProducts();
-		String answerIds[] = answers.split("|");
+		List<ProductDaoModel> productDaoModels = productDaoImpl.getAllProducts();
+		String answerIds[] = answers.split(":");
 		for (int i = 0; i < answerIds.length; ++i) {
-			processSingleAnswer(answerIds[i], productDaoModel);
+			processSingleAnswer(answerIds[i], productDaoModels);
 		}
-		// TODO compare to
-		return productDaoModel;
+		// sort
+		Collections.sort(productDaoModels);
+		
+		//get top 10
+		List<ProductDaoModel> response=new ArrayList<ProductDaoModel>();
+		int counter=0;
+		for(ProductDaoModel daoModel:productDaoModels){
+			if(counter==10)
+				break;
+			response.add(daoModel);
+		}
+		return response;
 	}
 
 	public void processSingleAnswer(String answerId, List<ProductDaoModel> productDaoModel) {
